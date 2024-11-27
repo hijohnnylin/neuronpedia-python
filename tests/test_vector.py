@@ -1,5 +1,6 @@
 import random
 import pytest
+from neuronpedia.np_vector import NPVector
 from neuronpedia.requests.vector_request import VectorRequest
 from tests.sample_data import GPT2_SMALL_RES_JB_JEDI_VECTOR
 
@@ -18,7 +19,7 @@ class TestNewVectorRequest:
         steer_strength = 15.0
 
         # create it
-        np_vector = vector_request.new(
+        np_vector = NPVector.new(
             label=label,
             model_id=model_id,
             layer_num=layer_num,

@@ -31,3 +31,27 @@ class NPVector:
         from neuronpedia.requests.vector_request import VectorRequest
 
         return VectorRequest().delete(self)
+
+    @classmethod
+    def new(
+        cls,
+        label: str,
+        model_id: str,
+        layer_num: int,
+        hook_type: str,
+        vector: list[float],
+        default_steer_strength: float | None = 10,
+    ) -> "NPVector":
+        # import here to avoid circular import
+        from neuronpedia.requests.vector_request import VectorRequest
+
+        np_vector = VectorRequest().new(
+            label=label,
+            model_id=model_id,
+            layer_num=layer_num,
+            hook_type=hook_type,
+            vector=vector,
+            default_steer_strength=default_steer_strength,
+        )
+
+        return np_vector
