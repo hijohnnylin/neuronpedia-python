@@ -64,6 +64,22 @@ class VectorRequest(NPRequest):
             json=payload,
         )
 
+    def get(self, model_id: str, source: str, index: str) -> NPVector:
+        response = self.send_request(
+            method="POST",
+            uri="get",
+            json={"modelId": model_id, "source": source, "index": index},
+        )
+        return NPVector(
+            model_id=response["vector"]["modelId"],
+            source=response["vector"]["layer"],
+            index=response["vector"]["index"],
+            label=response["vector"]["vectorLabel"],
+            hook_name=response["vector"]["hookName"],
+            values=response["vector"]["vector"],
+            default_steer_strength=response["vector"]["vectorDefaultSteerStrength"],
+        )
+
     def list_owned(self) -> list[NPVector]:
         response = self._list_owned()
         return [

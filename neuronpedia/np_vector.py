@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import os
 from typing import List
 
 
@@ -14,6 +15,12 @@ class NPVector:
     hook_name: str
     default_steer_strength: float | None
     url: str | None = None
+
+    def __post_init__(self):
+        if not self.url:
+            USE_LOCALHOST = os.getenv("USE_LOCALHOST", False)
+            BASE_URL = "https://neuronpedia.org/api" if not USE_LOCALHOST else "http://localhost:3000/api"
+            self.url = f"{BASE_URL}/{self.model_id}/{self.source}/{self.index}"
 
     def __eq__(self, other: "NPVector") -> bool:
         return (
@@ -31,6 +38,21 @@ class NPVector:
         from neuronpedia.requests.vector_request import VectorRequest
 
         return VectorRequest().delete(self)
+
+    def steer_chat(self, steered_chat_messages: list[dict[str, str]]):
+        # import here to avoid circular import
+        from neuronpedia.requests.steer_request import SteerChatRequest
+
+        return SteerChatRequest().steer(
+            model_id=self.model_id, vectors=[self], steered_chat_messages=steered_chat_messages
+        )
+
+    @classmethod
+    def get(cls, model_id: str, source: str, index: str) -> "NPVector":
+        # import here to avoid circular import
+        from neuronpedia.requests.vector_request import VectorRequest
+
+        return VectorRequest().get(model_id, source, index)
 
     @classmethod
     def new(

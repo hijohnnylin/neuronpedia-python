@@ -59,8 +59,8 @@ class NPRequest:
 
     def send_request(
         self,
-        uri: str,
-        method: str = "GET",
+        uri: str = "",
+        method: str = "POST",
         **kwargs,
     ):
         """Send an HTTP request."""
@@ -71,7 +71,7 @@ class NPRequest:
         headers["X-Api-Key"] = self.api_key
         url = f"{self.BASE_URL}/{self.endpoint}/{uri}"
         print(f"Sending {method} request to {url}")
-        print(f"Body: {kwargs.get('json', {})}")
+        print(f"Body: {json.dumps(kwargs.get('json', {}), indent=2)}")
 
         response = requests.request(
             method,
