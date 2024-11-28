@@ -2,7 +2,7 @@ import random
 import pytest
 from neuronpedia.np_vector import NPVector
 from neuronpedia.requests.vector_request import VectorRequest
-from tests.sample_data import GPT2_SMALL_RES_JB_JEDI_VECTOR
+from neuronpedia.sample_data import GPT2_SMALL_RES_JB_JEDI_VECTOR
 
 
 class TestNewVectorRequest:

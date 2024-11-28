@@ -14,7 +14,7 @@ Some APIs on Neuronpedia require an API key. For example, if you want to bookmar
 
 ```
 from neuronpedia.np_vector import NPVector
-from tests.sample_data import GEMMA2_2B_IT_DINOSAURS_VECTOR
+from neuronpedia.sample_data import GEMMA2_2B_IT_DINOSAURS_VECTOR
 
 # upload the vector
 np_vector = NPVector.new(
