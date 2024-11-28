@@ -40,7 +40,7 @@ class TestNewVectorRequest:
         # delete it
         np_vector.delete()
 
-    def test_list_owned(self, vector_request):
+    def test_get_owned(self, vector_request):
 
         # make a test vector
         label = "Jedi " + str(random.randint(0, 1000000))
@@ -61,7 +61,7 @@ class TestNewVectorRequest:
         )
 
         # list all vectors
-        np_vectors = vector_request.list_owned()
+        np_vectors = vector_request.get_owned()
         assert len(np_vectors) > 0
 
         # check for new_np_vector in the list

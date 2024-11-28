@@ -1,4 +1,3 @@
-import json
 import os
 import requests
 from dotenv import load_dotenv
@@ -71,7 +70,7 @@ class NPRequest:
         headers["X-Api-Key"] = self.api_key
         url = f"{self.BASE_URL}/{self.endpoint}/{uri}"
         print(f"Sending {method} request to {url}")
-        print(f"Body: {json.dumps(kwargs.get('json', {}), indent=2)}")
+        # print(f"Body: {json.dumps(kwargs.get('json', {}), indent=2)}")
 
         response = requests.request(
             method,
@@ -97,8 +96,8 @@ class NPRequest:
         response.raise_for_status()  # Raise an exception for HTTP errors
         try:
             response_json = response.json()
-            print("Response:")
-            print(json.dumps(response_json, indent=2))
+            print("Got a successful response.")
+            # print(json.dumps(response_json, indent=2))
             return response_json
         except requests.exceptions.JSONDecodeError:
             print(f"Error: Response text: {response.text[:1024]}")

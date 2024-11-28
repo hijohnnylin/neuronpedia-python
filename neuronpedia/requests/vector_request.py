@@ -80,8 +80,8 @@ class VectorRequest(NPRequest):
             default_steer_strength=response["vector"]["vectorDefaultSteerStrength"],
         )
 
-    def list_owned(self) -> list[NPVector]:
-        response = self._list_owned()
+    def get_owned(self) -> list[NPVector]:
+        response = self._get_owned()
         return [
             NPVector(
                 model_id=vector["modelId"],
@@ -95,7 +95,7 @@ class VectorRequest(NPRequest):
             for vector in response["vectors"]
         ]
 
-    def _list_owned(self) -> Response:
+    def _get_owned(self) -> Response:
         return self.send_request(
             method="POST",
             uri="list-owned",

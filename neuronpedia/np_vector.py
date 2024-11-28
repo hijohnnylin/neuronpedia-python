@@ -2,6 +2,8 @@ from dataclasses import dataclass
 import os
 from typing import List
 
+from neuronpedia.requests.activation_request import Activation
+
 
 @dataclass
 class NPVector:
@@ -47,12 +49,30 @@ class NPVector:
             model_id=self.model_id, vectors=[self], steered_chat_messages=steered_chat_messages
         )
 
+    def compute_activation_for_text(self, text: str) -> Activation:
+        # import here to avoid circular import
+        from neuronpedia.requests.activation_request import ActivationRequest
+
+        return ActivationRequest().compute_activation_for_text(self.model_id, self.source, self.index, text)
+
+    def upload_activations(self, activations: List[Activation]):
+        from neuronpedia.requests.activation_request import ActivationRequest
+
+        return ActivationRequest().upload_batch(self.model_id, self.source, self.index, activations)
+
     @classmethod
     def get(cls, model_id: str, source: str, index: str) -> "NPVector":
         # import here to avoid circular import
         from neuronpedia.requests.vector_request import VectorRequest
 
         return VectorRequest().get(model_id, source, index)
+
+    @classmethod
+    def get_owned(cls) -> List["NPVector"]:
+        # import here to avoid circular import
+        from neuronpedia.requests.vector_request import VectorRequest
+
+        return VectorRequest().get_owned()
 
     @classmethod
     def new(
