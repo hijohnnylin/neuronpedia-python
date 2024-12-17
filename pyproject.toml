@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "neuronpedia"
-version = "1.0.6"
+version = "1.0.8"
 description = "Official Neuronpedia Python Library"
 authors = ["Johnny Lin <johnny@neuronpedia.org>"]
 readme = "README.md"

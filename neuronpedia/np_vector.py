@@ -49,6 +49,12 @@ class NPVector:
             model_id=self.model_id, vectors=[self], steered_chat_messages=steered_chat_messages
         )
 
+    def steer_completion(self, prompt: str):
+        # import here to avoid circular import
+        from neuronpedia.requests.steer_request import SteerCompletionRequest
+
+        return SteerCompletionRequest().steer(model_id=self.model_id, vectors=[self], prompt=prompt)
+
     def compute_activation_for_text(self, text: str) -> Activation:
         # import here to avoid circular import
         from neuronpedia.requests.activation_request import ActivationRequest
